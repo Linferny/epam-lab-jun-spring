@@ -1,12 +1,13 @@
 package lab.model;
 
 import java.io.Serializable;
+import java.util.Objects;
 
-public class Country implements Serializable{
+public class Country implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	private int id;
+    private int id;
 
     private String name;
 
@@ -54,22 +55,22 @@ public class Country implements Serializable{
         return id + ". " + name + " (" + codeName + ")";
     }
 
+    @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Country country = (Country) o;
-
-        if (codeName != null ? !codeName.equals(country.codeName) : country.codeName != null) return false;
-        if (name != null ? !name.equals(country.name) : country.name != null) return false;
-
-        return true;
+        return id == country.id &&
+                Objects.equals(name, country.name) &&
+                Objects.equals(codeName, country.codeName);
     }
 
+    @Override
     public int hashCode() {
-        int result = 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (codeName != null ? codeName.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, codeName);
     }
 }
